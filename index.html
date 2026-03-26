@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepoLearn - English Grammar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #dcfce7;
+            border-radius: 10px;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+            background-color: #86efac;
+        }
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#fdfbf7] text-gray-800 font-sans p-2 sm:p-6 lg:p-8 flex items-center justify-center">
+
+    <!-- Dashboard Container -->
+    <div class="w-full max-w-6xl bg-white rounded-[2rem] sm:rounded-[3rem] shadow-2xl shadow-green-900/5 flex flex-col md:flex-row overflow-hidden border-4 border-[#e8f5e9] min-h-[85vh] relative">
+        
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden absolute top-4 left-4 z-50 p-2 bg-green-50 rounded-full text-green-700 hover:bg-green-100 transition-colors">
+            <i data-lucide="menu" id="menu-icon"></i>
+        </button>
+
+        <!-- --- Sidebar Navigation --- -->
+        <aside id="sidebar" class="-translate-x-full md:translate-x-0 transition-transform duration-300 absolute md:relative z-40 h-full w-64 bg-[#f8fcf9] border-r-2 border-[#dcfce7] flex flex-col pt-16 md:pt-8">
+            <!-- Logo / Title -->
+            <div class="px-8 pb-6 flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-green-200 shrink-0">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 id="ui-app-name" class="text-xl font-bold text-gray-800 tracking-tight">PrepoLearn</h1>
+                    <p id="ui-app-sub" class="text-xs text-green-600 font-medium">Grammar Master</p>
+                </div>
+            </div>
+
+            <div class="px-6 mb-4 flex-1 overflow-hidden flex flex-col">
+                <h2 id="ui-prepositions-title" class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 shrink-0">คำบุพบท (Prepositions)</h2>
+                <!-- เมนูคำศัพท์จะถูกสร้างด้วย JavaScript -->
+                <div id="nav-menu" class="space-y-1 overflow-y-auto pb-4 pr-1 custom-scrollbar"></div>
+            </div>
+        </aside>
+
+        <!-- --- Main Content Area --- -->
+        <main class="flex-1 bg-[#fcfaf5] flex flex-col h-full overflow-y-auto w-full relative z-10">
+            <div class="p-6 sm:p-10 lg:p-12 w-full max-w-4xl mx-auto flex-1 flex flex-col mt-12 md:mt-0">
+                
+                <!-- Header Area -->
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between border-b-2 border-green-100 pb-6 mb-8 gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold mb-3">
+                            <i data-lucide="book-marked" class="w-4 h-4"></i>
+                            <span id="ui-position-place">Position / Place</span>
+                        </div>
+                        <h2 class="text-5xl font-extrabold text-gray-800 flex items-baseline gap-4">
+                            <span id="word-title">In</span>
+                            <span id="word-phonetic" class="text-2xl font-normal text-gray-400 font-serif">/ɪn/</span>
+                        </h2>
+                        <p class="text-xl text-green-600 font-medium mt-2">
+                            <span id="ui-means">แปลว่า:</span> <span id="word-translation">ใน, ภายใน</span>
+                        </p>
+                    </div>
+
+                    <!-- Language Toggle Button -->
+                    <button id="lang-toggle-btn" class="flex items-center gap-2 px-4 py-2 bg-white border-2 border-green-200 text-green-700 rounded-full font-bold hover:bg-green-50 hover:border-green-300 transition-all shadow-sm">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                        <span id="ui-lang-toggle">EN</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Left Column - Illustration -->
+                    <div class="lg:col-span-5 flex flex-col items-center justify-center bg-white rounded-3xl p-8 border-2 border-[#e8f5e9] shadow-sm relative overflow-hidden group">
+                        <!-- Decorative background circle -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#fdfbf7] rounded-full z-0 transition-transform duration-500 group-hover:scale-110"></div>
+                        
+                        <!-- ช่องใส่ภาพวาด SVG -->
+                        <div id="illustration-container" class="w-48 h-48 relative z-10 transition-transform duration-300 hover:scale-105"></div>
+                        
+                        <div class="mt-6 z-10 w-full text-center">
+                            <span class="inline-block px-4 py-1.5 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
+                                The cat is <strong id="word-sentence-highlight" class="text-orange-800">in</strong> the box.
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Content -->
+                    <div class="lg:col-span-7 flex flex-col gap-6">
+                        <!-- ความหมายและหลักการจำ -->
+                        <div class="bg-white rounded-3xl p-6 border-2 border-green-50 shadow-sm relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-2 h-full bg-green-400"></div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
+                                <i data-lucide="info" class="w-5 h-5 text-green-500"></i>
+                                <span id="ui-description-title">คำอธิบาย (Description)</span>
+                            </h3>
+                            <p id="word-description" class="text-gray-600 leading-relaxed mb-4"></p>
+                            
+                            <div class="bg-[#fdf8f0] p-4 rounded-xl border border-orange-100">
+                                <h4 class="text-sm font-bold text-orange-800 mb-1 flex items-center gap-2">
+                                    <span id="ui-trick-title">💡 ทริคในการจำ:</span>
+                                </h4>
+                                <p id="word-trick" class="text-orange-700 text-sm"></p>
+                            </div>
+                        </div>
+
+                        <!-- ตัวอย่างประโยค -->
+                        <div class="bg-white rounded-3xl p-6 border-2 border-green-50 shadow-sm">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+                                <span id="ui-examples-title">ตัวอย่างประโยค (Examples)</span>
+                            </h3>
+                            <!-- ช่องใส่ประโยคตัวอย่าง -->
+                            <div id="examples-container" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer / References -->
+                <div class="mt-12 pt-6 border-t border-gray-200 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <p id="ui-footer-text" class="text-xs text-gray-400"></p>
+                    <div class="flex items-center gap-2 text-xs text-gray-400 bg-white px-3 py-1.5 rounded-full border border-gray-100 shadow-sm">
+                        <i data-lucide="external-link" class="w-3 h-3 text-green-500"></i>
+                        <span id="ui-ref-text"></span>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <!-- Overlay for mobile menu -->
+        <div id="mobile-overlay" class="hidden md:hidden fixed inset-0 bg-black/20 z-30 transition-opacity"></div>
+    </div>
+
+    <script>
+        // --- 1. ข้อมูลและเนื้อหาทั้งหมด ---
+
+        const uiTexts = {
+            th: {
+                appName: "PrepoLearn",
+                appSub: "Grammar Master",
+                prepositionsTitle: "คำบุพบท (Prepositions)",
+                positionPlace: "Position / Place",
+                means: "แปลว่า:",
+                description: "คำอธิบาย (Description)",
+                trick: "💡 ทริคในการจำ:",
+                examples: "ตัวอย่างประโยค (Examples)",
+                footerText: "ออกแบบและพัฒนาสำหรับการเรียนรู้ภาษาอังกฤษ (English Grammar Prepositions of Place)",
+                refText: "อ้างอิง: Cambridge Dictionary, Oxford Learner's",
+                langToggle: "EN"
+            },
+            en: {
+                appName: "PrepoLearn",
+                appSub: "Grammar Master",
+                prepositionsTitle: "Prepositions",
+                positionPlace: "Position / Place",
+                means: "Means:",
+                description: "Description",
+                trick: "💡 Tip to remember:",
+                examples: "Examples",
+                footerText: "Designed and developed for English learning (English Grammar Prepositions of Place)",
+                refText: "References: Cambridge Dictionary, Oxford Learner's",
+                langToggle: "TH"
+            }
+        };
+
+        // ฟังก์ชันสร้าง SVG แบบข้อความ (String Literals) สำหรับใช้ใน HTML
+        const Cat = (x, y) => `
+            <g transform="translate(${x}, ${y})">
+                <polygon points="5,-5 0,-15 15,-5" fill="#f97316" />
+                <polygon points="35,-5 40,-15 25,-5" fill="#f97316" />
+                <circle cx="20" cy="15" r="20" fill="#fb923c" />
+                <circle cx="12" cy="10" r="3" fill="#1e293b" />
+                <circle cx="28" cy="10" r="3" fill="#1e293b" />
+                <polygon points="18,15 22,15 20,18" fill="#f43f5e" />
+                <path d="M 20 18 Q 15 22 10 18" stroke="#1e293b" fill="none" stroke-width="1.5" />
+                <path d="M 20 18 Q 25 22 30 18" stroke="#1e293b" fill="none" stroke-width="1.5" />
+            </g>`;
+
+        const Box = (x, y, w=60, h=60) => `
+            <g transform="translate(${x}, ${y})">
+                <rect x="0" y="0" width="${w}" height="${h}" rx="4" fill="#d4aa70" stroke="#b48648" stroke-width="2" />
+                <path d="M 0 15 L ${w} 15" stroke="#b48648" stroke-width="2" />
+            </g>`;
+
+        const Tree = (x, y) => `
+            <g transform="translate(${x}, ${y})">
+                <rect x="15" y="30" width="10" height="30" fill="#78350f" />
+                <circle cx="20" cy="15" r="25" fill="#22c55e" />
+            </g>`;
+
+        const svgs = {
+            1: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">${Box(20,30)}${Cat(30,20)}<path d="M 20 45 L 80 45 L 80 90 L 20 90 Z" fill="#d4aa70" opacity="0.9" /><path d="M 20 45 L 80 45" stroke="#b48648" stroke-width="2" /></svg>`,
+            2: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">${Box(20,50,60,40)}${Cat(30,10)}</svg>`,
+            3: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md"><path d="M 10 80 L 90 80" stroke="#94a3b8" stroke-width="4" /><rect x="60" y="30" width="30" height="50" fill="#94a3b8" rx="4" /><text x="75" y="55" font-size="12" text-anchor="middle" fill="white">BUS</text>${Cat(15,45)}<path d="M 35 35 C 35 25 45 25 45 35 C 45 45 35 55 35 55 C 35 55 25 45 25 35 Z" fill="#ef4444" /><circle cx="35" cy="35" r="4" fill="white" /></svg>`,
+            4: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md"><rect x="10" y="30" width="80" height="10" fill="#8b5cf6" rx="2" /><rect x="20" y="40" width="8" height="50" fill="#7c3aed" /><rect x="72" y="40" width="8" height="50" fill="#7c3aed" />${Cat(30,55)}</svg>`,
+            5: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">${Box(10,40,40,50)}${Cat(55,55)}</svg>`,
+            6: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">${Box(5,40,30,40)}${Box(65,40,30,40)}${Cat(30,45)}</svg>`,
+            7: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md"><rect x="25" y="10" width="50" height="30" fill="#38bdf8" stroke="#0284c7" stroke-width="4" rx="2" />${Cat(30,60)}<line x1="50" y1="45" x2="50" y2="55" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4" /></svg>`,
+            8: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md"><path d="M 40 10 L 60 10 L 60 90 L 40 90 Z" fill="#64748b" /><line x1="50" y1="10" x2="50" y2="90" stroke="white" stroke-width="2" stroke-dasharray="5" />${Cat(0,35)}${Tree(65,25)}</svg>`,
+            9: `<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">${Box(10,20,30,30)}${Cat(60,60)}<path d="M 45 45 Q 55 50 60 60" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4" fill="none" /></svg>`,
+            10:`<svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">${Box(20,60,60,30)}${Cat(30,10)}<line x1="50" y1="50" x2="50" y2="55" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4" /></svg>`
+        };
+
+        const prepositionsData = [
+            { id: 1, word: "In", phonetic: "/ɪn/", translation: { th: "ใน, ภายใน", en: "In, Inside" }, svg: svgs[1],
+              description: { th: "ใช้บอกตำแหน่งที่สิ่งหนึ่งอยู่ 'ภายใน' พื้นที่, ภาชนะ, หรือสิ่งห่อหุ้มบางอย่างที่มีขอบเขตชัดเจน", en: "Used to indicate that something is 'inside' a space, container, or boundary." },
+              keyRule: { th: "นึกถึงสิ่งของที่ถูกล้อมรอบด้วย 3 มิติ (มีขอบเขต ซ้าย ขวา หน้า หลัง บน ล่าง)", en: "Think of a 3D enclosed space (surrounded on all sides)." },
+              examples: [{ en: "The cat is in the box.", th: "แมวอยู่ในกล่อง" }, { en: "I live in Bangkok.", th: "ฉันอาศัยอยู่ในกรุงเทพฯ" }, { en: "The keys are in my pocket.", th: "กุญแจอยู่ในกระเป๋ากางเกงของฉัน" }]
+            },
+            { id: 2, word: "On", phonetic: "/ɒn/", translation: { th: "บน", en: "On" }, svg: svgs[2],
+              description: { th: "ใช้บอกตำแหน่งที่สิ่งหนึ่งอยู่ 'บนพื้นผิว' ของอีกสิ่งหนึ่ง โดยมีการสัมผัสกับพื้นผิวนั้น", en: "Used to indicate that something is positioned 'on the surface' of another object, touching it." },
+              keyRule: { th: "ต้องมีการสัมผัส (Touching) ผิวหน้าของสิ่งนั้น ไม่ว่าจะแนวราบหรือแนวดิ่ง", en: "There must be physical contact (touching) with a surface, either horizontal or vertical." },
+              examples: [{ en: "The cat is on the table.", th: "แมวอยู่บนโต๊ะ" }, { en: "There is a picture on the wall.", th: "มีรูปภาพติดอยู่บนผนัง" }, { en: "The book is on the desk.", th: "หนังสืออยู่บนโต๊ะทำงาน" }]
+            },
+            { id: 3, word: "At", phonetic: "/æt/", translation: { th: "ที่", en: "At" }, svg: svgs[3],
+              description: { th: "ใช้บอก 'จุดตำแหน่งเฉพาะ' (Specific point) หรือสถานที่ใดสถานที่หนึ่งในแผนที่ ไม่ได้เน้นว่าอยู่ข้างในหรือข้างบน", en: "Used to indicate a 'specific point' or location on a map, not emphasizing inside or on top." },
+              keyRule: { th: "นึกถึงการปักหมุด (Pin) บนแผนที่ หรือสถานที่ที่เราไปเพื่อทำกิจกรรมเฉพาะจุดนั้น", en: "Think of pinning a location on a map or a place for a specific activity." },
+              examples: [{ en: "I am waiting at the bus stop.", th: "ฉันกำลังรออยู่ที่ป้ายรถเมล์" }, { en: "She is at school.", th: "เธออยู่ที่โรงเรียน" }, { en: "Look at the door.", th: "มองไปที่ประตูสิ" }]
+            },
+            { id: 4, word: "Under", phonetic: "/ˈʌn.dər/", translation: { th: "ใต้, ข้างใต้", en: "Under" }, svg: svgs[4],
+              description: { th: "ใช้บอกตำแหน่งที่สิ่งหนึ่งอยู่ 'ต่ำกว่า' และมักจะถูกอีกสิ่งหนึ่ง 'ปกคลุม' หรือ 'บัง' อยู่เบื้องบนตรงๆ", en: "Used to indicate something is 'lower than' and usually 'covered' by something else directly above it." },
+              keyRule: { th: "อยู่ต่ำกว่าแบบมีสิ่งของบางอย่างครอบ หรือบังอยู่ด้านบนโดยตรง", en: "Lower position with something directly covering or blocking from above." },
+              examples: [{ en: "The cat is sleeping under the table.", th: "แมวกำลังนอนอยู่ใต้โต๊ะ" }, { en: "I found my shoes under the bed.", th: "ฉันเจอร้องเท้าอยู่ใต้เตียง" }, { en: "He hid the letter under a book.", th: "เขาซ่อนจดหมายไว้ใต้หนังสือ" }]
+            },
+            { id: 5, word: "Next to", phonetic: "/nekst tuː/", translation: { th: "ถัดจาก, ข้างๆ", en: "Next to, Beside" }, svg: svgs[5],
+              description: { th: "ใช้บอกว่าสิ่งหนึ่งตั้งอยู่ 'ด้านข้าง' ของอีกสิ่งหนึ่ง โดยปกติจะอยู่ติดกันหรือชิดกันมาก", en: "Used to indicate something is situated at the 'side' of another object, usually very close or touching." },
+              keyRule: { th: "มีความหมายเหมือนกับคำว่า Beside (ข้างๆ) แต่ Next to นิยมใช้มากกว่าในภาษาพูด", en: "Similar to 'Beside', but 'Next to' is more common in spoken language." },
+              examples: [{ en: "The bank is next to the hospital.", th: "ธนาคารอยู่ถัดจากโรงพยาบาล" }, { en: "Come and sit next to me.", th: "มานั่งข้างๆ ฉันสิ" }, { en: "The cat is sitting next to the box.", th: "แมวนั่งอยู่ข้างๆ กล่อง" }]
+            },
+            { id: 6, word: "Between", phonetic: "/bɪˈtwiːn/", translation: { th: "ระหว่าง", en: "Between" }, svg: svgs[6],
+              description: { th: "ใช้บอกตำแหน่งที่สิ่งหนึ่งอยู่ 'ตรงกลาง' โดยมีสิ่งอื่นขนาบอยู่ 2 ข้าง", en: "Used to indicate something is 'in the middle' of two other things flanking it." },
+              keyRule: { th: "มักจะตามด้วย [A and B] หรือคำนามพหูพจน์ 2 สิ่ง", en: "Usually followed by [A and B] or plural nouns representing two items." },
+              examples: [{ en: "The cat is between the two boxes.", th: "แมวอยู่ระหว่างกล่องสองใบ" }, { en: "The shop is between the bank and the school.", th: "ร้านค้าอยู่ระหว่างธนาคารและโรงเรียน" }, { en: "She sat between John and Mary.", th: "เธอนั่งอยู่ระหว่างจอห์นและแมรี่" }]
+            },
+            { id: 7, word: "Below", phonetic: "/bɪˈləʊ/", translation: { th: "ต่ำกว่า, ข้างล่าง", en: "Below" }, svg: svgs[7],
+              description: { th: "ใช้บอกว่าสิ่งหนึ่งอยู่ 'ในระดับที่ต่ำกว่า' อีกสิ่งหนึ่ง โดยไม่จำเป็นต้องอยู่ข้างใต้ตรงๆ และมักไม่ได้ถูกปกคลุม", en: "Used to indicate something is at a 'lower level' than another, not necessarily directly underneath or covered." },
+              keyRule: { th: "เน้น 'ระดับความสูง' ที่ต่ำกว่า (ใช้ตรงข้ามกับ Above) เช่น ระดับอุณหภูมิ, ตำแหน่งในหน้ากระดาษ", en: "Emphasizes 'lower height level' (opposite of Above), e.g., temperature, position on a page." },
+              examples: [{ en: "Please read the text below the picture.", th: "โปรดอ่านข้อความที่อยู่ต่ำกว่า(ด้านล่าง)รูปภาพ" }, { en: "The temperature is below zero.", th: "อุณหภูมิต่ำกว่าศูนย์องศา" }, { en: "Her apartment is below mine.", th: "อพาร์ตเมนต์ของเธออยู่ชั้นต่ำกว่าของฉัน" }]
+            },
+            { id: 8, word: "Opposite", phonetic: "/ˈɒp.ə.zɪt/", translation: { th: "ตรงข้าม", en: "Opposite" }, svg: svgs[8],
+              description: { th: "ใช้บอกว่าสิ่งหนึ่งอยู่ 'ฝั่งตรงข้าม' กับอีกสิ่งหนึ่ง โดยมักจะมีพื้นที่ว่าง ถนน หรือทางเดินคั่นกลางและหันหน้าเข้าหากัน", en: "Used to indicate something is on the 'other side' of another thing, usually facing each other with space in between." },
+              keyRule: { th: "ต้องอยู่คนละฝั่งและหันหน้าเผชิญกัน", en: "Must be on different sides and facing each other." },
+              examples: [{ en: "The cat is opposite the tree.", th: "แมวอยู่ฝั่งตรงข้ามกับต้นไม้" }, { en: "My house is opposite the park.", th: "บ้านของฉันอยู่ตรงข้ามสวนสาธารณะ" }, { en: "He sat opposite me at the table.", th: "เขานั่งตรงข้ามกับฉันที่โต๊ะ" }]
+            },
+            { id: 9, word: "Near", phonetic: "/nɪər/", translation: { th: "ใกล้", en: "Near" }, svg: svgs[9],
+              description: { th: "ใช้บอกระยะทางว่า 'อยู่ไม่ไกล' หรือ 'ใกล้เคียง' (แต่ไม่ได้แปลว่าติดกันแบบ Next to)", en: "Used to indicate a short distance, 'not far' or 'close' (but not necessarily touching like Next to)." },
+              keyRule: { th: "ใช้บอกระยะห่างกว้างๆ ว่าอยู่ในบริเวณใกล้เคียง", en: "Indicates general proximity in the surrounding area." },
+              examples: [{ en: "Is there a hospital near here?", th: "มีโรงพยาบาลอยู่แถวนี้(ใกล้ๆ นี้)ไหม?" }, { en: "The cat is near the box.", th: "แมวอยู่ใกล้กล่อง" }, { en: "I don't live near the sea.", th: "ฉันไม่ได้อาศัยอยู่ใกล้ทะเล" }]
+            },
+            { id: 10, word: "Above", phonetic: "/əˈbʌv/", translation: { th: "เหนือ, ข้างบน", en: "Above" }, svg: svgs[10],
+              description: { th: "ใช้บอกว่าสิ่งหนึ่งอยู่ 'ในระดับที่สูงกว่า' อีกสิ่งหนึ่ง โดย 'ไม่ได้สัมผัส' กัน", en: "Used to indicate something is at a 'higher level' than another thing, 'without touching'." },
+              keyRule: { th: "เน้น 'ระดับความสูง' ที่สูงกว่า (ใช้ตรงข้ามกับ Below) ไม่มีการสัมผัสผิวหน้าเหมือน On", en: "Emphasizes 'higher height level' (opposite of Below) without surface contact like 'On'." },
+              examples: [{ en: "The bird is flying above the tree.", th: "นกกำลังบินอยู่เหนือต้นไม้" }, { en: "There is a mirror above the sink.", th: "มีกระจกอยู่เหนืออ่างล้างหน้า" }, { en: "The clouds are above us.", th: "ก้อนเมฆอยู่เหนือพวกเรา" }]
+            }
+        ];
+
+        // --- 2. State & Logic ---
+        let currentLang = 'th';
+        let activeId = 1;
+        let isMobileMenuOpen = false;
+
+        // Elements
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        const navMenu = document.getElementById('nav-menu');
+        const langToggleBtn = document.getElementById('lang-toggle-btn');
+
+        function toggleMobileMenu() {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            if (isMobileMenuOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                mobileOverlay.classList.remove('hidden');
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('-translate-x-full');
+                mobileOverlay.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons(); // Refresh icon
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileOverlay.addEventListener('click', toggleMobileMenu);
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'th' ? 'en' : 'th';
+            renderAll();
+        });
+
+        // ฟังก์ชันเลือกคำศัพท์
+        function selectWord(id) {
+            activeId = id;
+            if (isMobileMenuOpen) toggleMobileMenu();
+            renderAll();
+        }
+
+        // --- 3. Rendering ---
+        function renderSidebar() {
+            navMenu.innerHTML = prepositionsData.map(item => {
+                const isActive = activeId === item.id;
+                return `
+                    <button onclick="selectWord(${item.id})" class="w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 text-left group
+                        ${isActive ? 'bg-green-100/80 border border-green-400 text-green-800 shadow-sm' : 'border border-transparent hover:bg-[#f0f9f4] text-gray-600 hover:text-green-700'}">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold
+                                ${isActive ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500 group-hover:bg-green-200 group-hover:text-green-700'}">
+                                ${item.id}
+                            </span>
+                            <span class="font-semibold ${isActive ? 'text-lg' : 'text-md'}">
+                                ${item.word}
+                            </span>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderMainContent() {
+            const data = prepositionsData.find(item => item.id === activeId);
+            const t = uiTexts[currentLang];
+
+            // Update Static UI Texts
+            document.getElementById('ui-app-name').innerText = t.appName;
+            document.getElementById('ui-app-sub').innerText = t.appSub;
+            document.getElementById('ui-prepositions-title').innerText = t.prepositionsTitle;
+            document.getElementById('ui-position-place').innerText = t.positionPlace;
+            document.getElementById('ui-means').innerText = t.means;
+            document.getElementById('ui-lang-toggle').innerText = t.langToggle;
+            document.getElementById('ui-description-title').innerText = t.description;
+            document.getElementById('ui-trick-title').innerText = t.trick;
+            document.getElementById('ui-examples-title').innerText = t.examples;
+            document.getElementById('ui-footer-text').innerText = t.footerText;
+            document.getElementById('ui-ref-text').innerText = t.refText;
+
+            // Update Dynamic Content
+            document.getElementById('word-title').innerText = data.word;
+            document.getElementById('word-phonetic').innerText = data.phonetic;
+            document.getElementById('word-translation').innerText = data.translation[currentLang];
+            document.getElementById('word-sentence-highlight').innerText = data.word.toLowerCase();
+            document.getElementById('illustration-container').innerHTML = data.svg;
+            document.getElementById('word-description').innerText = data.description[currentLang];
+            document.getElementById('word-trick').innerText = data.keyRule[currentLang];
+
+            // Update Examples
+            const examplesHtml = data.examples.map((ex, idx) => `
+                <div class="flex gap-4 items-start bg-[#fcfaf5] p-4 rounded-2xl border border-gray-100 hover:border-green-200 transition-colors">
+                    <div class="w-8 h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-bold text-sm shrink-0">
+                        ${idx + 1}
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 text-lg mb-1">${ex.en}</p>
+                        ${currentLang === 'th' ? `<p class="text-gray-500 text-sm">${ex.th}</p>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('examples-container').innerHTML = examplesHtml;
+        }
+
+        function renderAll() {
+            renderSidebar();
+            renderMainContent();
+            lucide.createIcons(); // Initialize icons after injecting HTML
+        }
+
+        // Initial render
+        renderAll();
+
+    </script>
+</body>
+</html>
